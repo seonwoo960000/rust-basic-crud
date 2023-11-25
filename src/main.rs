@@ -110,6 +110,11 @@ async fn main() {
         .map_err(internal_error);
 
     println!("val: {:?}", accounts);
+
+    sqlx::query!("DELETE FROM account")
+        .execute(&pool)
+        .await
+        .unwrap();
 }
 
 fn internal_error<E>(err: E) -> (StatusCode, String)
